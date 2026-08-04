@@ -140,7 +140,7 @@ If automatic migration fails or you want more control:
 3. **Use migration tool**
    ```bash
    # Download migration tool from GitHub
-   wget https://raw.githubusercontent.com/Domocn/Mise/main/backend/migrate_mongodb_to_postgres.py
+   wget https://raw.githubusercontent.com/Domocn/laro-priv/main/backend/migrate_mongodb_to_postgres.py
 
    # Run migration
    python3 migrate_mongodb_to_postgres.py \
