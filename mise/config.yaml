@@ -1,9 +1,9 @@
 # Home Assistant Add-on Configuration
 name: "Mise"
-version: "3.0.53"
+version: "3.1.31"
 slug: "mise"
 description: "Self-hosted family recipe management with PostgreSQL, Redis, and background job processing"
-url: "https://github.com/Domocn/Mise"
+url: "https://github.com/Domocn/laro-priv"
 arch:
   - amd64
   - aarch64

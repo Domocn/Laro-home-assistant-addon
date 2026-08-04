@@ -531,11 +531,11 @@ curl http://localhost:8001/api/jobs/JOB_ID \
 
 ## Support
 
-- Mise App: https://github.com/Domocn/Mise
+- Mise App: https://github.com/Domocn/laro-priv
 - Add-on Issues: https://github.com/Domocn/mise-home-assistant-addon/issues
-- Main App Documentation: https://github.com/Domocn/Mise/blob/main/README.md
-- Background Jobs Guide: https://github.com/Domocn/Mise/blob/main/BACKGROUND_JOBS.md
-- Redis Pub/Sub Guide: https://github.com/Domocn/Mise/blob/main/REDIS_PUBSUB.md
+- Main App Documentation: https://github.com/Domocn/laro-priv/blob/main/README.md
+- Background Jobs Guide: https://github.com/Domocn/laro-priv/blob/main/BACKGROUND_JOBS.md
+- Redis Pub/Sub Guide: https://github.com/Domocn/laro-priv/blob/main/REDIS_PUBSUB.md
 
 ## Changelog
 

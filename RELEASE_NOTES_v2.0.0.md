@@ -346,9 +346,9 @@ All features have been tested with:
 ### Updated Documentation
 - [DOCS.md](DOCS.md) - Complete add-on documentation
 - [UPGRADE_GUIDE.md](UPGRADE_GUIDE.md) - Migration instructions
-- [Main Project README](https://github.com/Domocn/Mise/blob/main/README.md)
-- [Background Jobs Guide](https://github.com/Domocn/Mise/blob/main/BACKGROUND_JOBS.md)
-- [Redis Pub/Sub Guide](https://github.com/Domocn/Mise/blob/main/REDIS_PUBSUB.md)
+- [Main Project README](https://github.com/Domocn/laro-priv/blob/main/README.md)
+- [Background Jobs Guide](https://github.com/Domocn/laro-priv/blob/main/BACKGROUND_JOBS.md)
+- [Redis Pub/Sub Guide](https://github.com/Domocn/laro-priv/blob/main/REDIS_PUBSUB.md)
 
 ### New Sections
 - Architecture overview with all 6 services
@@ -411,7 +411,7 @@ This release represents months of architectural improvements to bring Mise in li
 - **Documentation:** [DOCS.md](DOCS.md)
 - **Upgrade Guide:** [UPGRADE_GUIDE.md](UPGRADE_GUIDE.md)
 - **GitHub Issues:** https://github.com/Domocn/mise-home-assistant-addon/issues
-- **Main Project:** https://github.com/Domocn/Mise
+- **Main Project:** https://github.com/Domocn/laro-priv
 
 ### Reporting Bugs
 When reporting bugs, include:

@@ -436,8 +436,8 @@ Include:
 
 **Support channels:**
 - GitHub Issues: https://github.com/Domocn/mise-home-assistant-addon/issues
-- Main Project: https://github.com/Domocn/Mise
-- Documentation: https://github.com/Domocn/Mise/tree/main/docs
+- Main Project: https://github.com/Domocn/laro-priv
+- Documentation: https://github.com/Domocn/laro-priv/tree/main/docs
 
 ---
 
