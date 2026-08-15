@@ -128,7 +128,7 @@ https://github.com/Domocn/mise-home-assistant-addon/actions
 export DOCKER_BUILDKIT=1
 
 # Build with timing
-time docker build --platform linux/arm64 -t mise-addon:test .
+time docker build --platform linux/arm64 -t laro-addon:test .
 
 # Check cache usage
 docker builder du
@@ -138,7 +138,7 @@ docker builder du
 
 If issues occur, the previous Dockerfile is available in git history:
 ```bash
-git show 1b9add2:mise-home-assistant-addon/mise/Dockerfile > Dockerfile.backup
+git show 1b9add2:laro-home-assistant-addon/mise/Dockerfile > Dockerfile.backup
 ```
 
 ## Additional Optimization Opportunities
@@ -153,4 +153,3 @@ git show 1b9add2:mise-home-assistant-addon/mise/Dockerfile > Dockerfile.backup
 
 **Version:** 2.0.0
 **Last Updated:** 2026-01-19
-**Optimizations By:** Claude (commit 665abb3)

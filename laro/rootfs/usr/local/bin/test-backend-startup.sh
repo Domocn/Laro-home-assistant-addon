@@ -8,11 +8,11 @@ echo "Testing backend startup with verbose output..."
 echo ""
 
 # Source environment
-if [ -f /etc/mise.env ]; then
-    echo "Loading environment from /etc/mise.env..."
-    source /etc/mise.env
+if [ -f /etc/laro.env ]; then
+    echo "Loading environment from /etc/laro.env..."
+    source /etc/laro.env
 else
-    echo "WARNING: /etc/mise.env not found!"
+    echo "WARNING: /etc/laro.env not found!"
 fi
 
 echo ""

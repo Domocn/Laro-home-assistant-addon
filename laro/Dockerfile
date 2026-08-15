@@ -1,4 +1,4 @@
-# Mise Home Assistant Add-on
+# Laro Home Assistant Add-on
 # Optimized multi-stage build for faster ARM builds
 # syntax=docker/dockerfile:1
 
@@ -17,11 +17,11 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     corepack prepare yarn@1.22.22 --activate
 
 # Cache bust: fetch latest commit info to invalidate cache when repo updates
-ADD https://api.github.com/repos/Domocn/Mise/git/refs/heads/main /tmp/mise-version.json
+ADD https://api.github.com/repos/Domocn/laro-priv/git/refs/heads/main /tmp/laro-version.json
 
 # Clone and build frontend
-RUN git clone --depth 1 https://github.com/Domocn/Mise.git /mise
-WORKDIR /mise/frontend
+RUN git clone --depth 1 https://github.com/Domocn/laro-priv.git /laro
+WORKDIR /laro/frontend
 # Empty string = same-origin proxy mode (nginx proxies /api/ to backend)
 ARG REACT_APP_BACKEND_URL=
 ENV REACT_APP_BACKEND_URL=$REACT_APP_BACKEND_URL
@@ -52,28 +52,28 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
 RUN python3 -m venv /opt/venv && \
     mkdir -p /app/backend /app/frontend \
         /data/postgres /data/redis /data/uploads \
-        /var/log/mise /run/nginx /run/postgresql /var/run/postgresql
+        /var/log/laro /run/nginx /run/postgresql /var/run/postgresql
 
 ENV PATH="/opt/venv/bin:$PATH"
 
 # Cache bust: fetch latest commit info to invalidate cache when repo updates
-ADD https://api.github.com/repos/Domocn/Mise/git/refs/heads/main /tmp/mise-version-backend.json
+ADD https://api.github.com/repos/Domocn/laro-priv/git/refs/heads/main /tmp/laro-version-backend.json
 
 # Clone repo, install Python deps, and copy backend - using pip cache
 RUN --mount=type=cache,target=/root/.cache/pip \
-    git clone --depth 1 https://github.com/Domocn/Mise.git /tmp/mise && \
-    pip install --no-cache-dir -r /tmp/mise/backend/requirements.txt && \
-    cp -r /tmp/mise/backend/* /app/backend/ && \
-    rm -rf /tmp/mise
+    git clone --depth 1 https://github.com/Domocn/laro-priv.git /tmp/laro && \
+    pip install --no-cache-dir -r /tmp/laro/backend/requirements.txt && \
+    cp -r /tmp/laro/backend/* /app/backend/ && \
+    rm -rf /tmp/laro
 
 # Copy frontend build from first stage
-COPY --from=frontend-build /mise/frontend/build /app/frontend/
+COPY --from=frontend-build /laro/frontend/build /app/frontend/
 
 # Copy config files and set permissions
 COPY rootfs/etc/nginx/nginx.conf /etc/nginx/nginx.conf
 COPY rootfs/etc/supervisor/conf.d/ /etc/supervisor/conf.d/
 COPY rootfs/usr/local/bin/wait-for-postgres.sh /usr/local/bin/wait-for-postgres.sh
-COPY rootfs/usr/local/bin/mise-env.sh /usr/local/bin/mise-env.sh
+COPY rootfs/usr/local/bin/laro-env.sh /usr/local/bin/laro-env.sh
 COPY rootfs/usr/local/bin/log-wrapper.sh /usr/local/bin/log-wrapper.sh
 COPY rootfs/usr/local/bin/test-backend-startup.sh /usr/local/bin/test-backend-startup.sh
 COPY rootfs/run.sh /run.sh
@@ -91,9 +91,9 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=90s --retries=3 \
     CMD curl -f http://localhost:3000/health || curl -f http://localhost:8001/api/health || exit 1
 
 # Labels
-LABEL io.hass.name="Mise" \
+LABEL io.hass.name="Laro" \
     io.hass.description="Self-hosted family recipe management and meal planning with PostgreSQL, Redis, and background jobs" \
-    io.hass.version="2.0.0" \
+    io.hass.version="4.0.5" \
     io.hass.type="addon" \
     io.hass.arch="amd64|aarch64"
 

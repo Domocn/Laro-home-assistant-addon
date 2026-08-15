@@ -4,10 +4,11 @@ build_from:
   aarch64: ghcr.io/home-assistant/aarch64-base-debian:bookworm
 
 args:
-  REACT_APP_BACKEND_URL: /api
+  # Empty = same-origin; nginx proxies /api to the backend
+  REACT_APP_BACKEND_URL: ""
 
 labels:
-  org.opencontainers.image.title: "Mise"
+  org.opencontainers.image.title: "Laro"
   org.opencontainers.image.description: "Self-hosted family recipe management"
   org.opencontainers.image.source: "https://github.com/Domocn/laro-priv"
   org.opencontainers.image.licenses: "MIT"

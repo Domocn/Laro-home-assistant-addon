@@ -7,7 +7,7 @@ set -e
 SERVICE_NAME=$1
 shift
 
-LOG_DIR="/var/log/mise"
+LOG_DIR="/var/log/laro"
 STDOUT_LOG="${LOG_DIR}/${SERVICE_NAME}.log"
 STDERR_LOG="${LOG_DIR}/${SERVICE_NAME}-error.log"
 

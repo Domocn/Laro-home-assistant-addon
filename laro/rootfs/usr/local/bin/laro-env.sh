@@ -4,7 +4,7 @@
 
 set -e
 
-ENV_FILE="/etc/mise.env"
+ENV_FILE="/etc/laro.env"
 
 # Source environment file if it exists
 if [ -f "$ENV_FILE" ]; then

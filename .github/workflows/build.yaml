@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - "mise/**"
+      - "laro/**"
       - ".github/workflows/build.yaml"
   release:
     types: [published]
@@ -17,7 +17,7 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  ADDON_SLUG: mise
+  ADDON_SLUG: laro
   REGISTRY: ghcr.io
 
 jobs:

@@ -305,7 +305,7 @@ enable_flower_dashboard: false
 ```json
 {
   "status": "healthy",
-  "app": "Mise",
+  "app": "Laro",
   "version": "2.0.0",
   "database": "postgresql",
   "redis": {
@@ -430,7 +430,7 @@ When reporting bugs, include:
 **Home Assistant Add-on Store:**
 ```
 Settings > Add-ons > Add-on Store
-Search: "Mise"
+Search: "Laro"
 Version: 2.0.0
 ```
 

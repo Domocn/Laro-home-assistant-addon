@@ -131,7 +131,7 @@ If automatic migration fails or you want more control:
    docker exec addon_mise mongodump --out=/data/backup
 
    # Copy backup to safe location
-   docker cp addon_mise:/data/backup ./mise-backup
+   docker cp addon_mise:/data/backup ./laro-backup
    ```
 
 2. **Upgrade to v2.0.0**
@@ -144,7 +144,7 @@ If automatic migration fails or you want more control:
 
    # Run migration
    python3 migrate_mongodb_to_postgres.py \
-     --mongodb-dump=./mise-backup \
+     --mongodb-dump=./laro-backup \
      --postgres-url="postgresql://mise:mise@localhost:5432/mise"
    ```
 

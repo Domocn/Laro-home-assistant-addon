@@ -1,8 +1,8 @@
-# Mise Home Assistant Add-on Documentation
+# Laro Home Assistant Add-on Documentation
 
 ## Overview
 
-Mise is a self-hosted recipe management system designed for families. This add-on packages Mise to run seamlessly within Home Assistant, providing a privacy-focused solution for managing your recipes, meal plans, and shopping lists.
+Laro is a self-hosted recipe management system designed for families. This add-on packages Laro to run seamlessly within Home Assistant, providing a privacy-focused solution for managing your recipes, meal plans, and shopping lists.
 
 **Version 2.0.0** includes major architectural improvements:
 - ✅ **PostgreSQL 15** - High-performance relational database
@@ -70,7 +70,7 @@ Mise is a self-hosted recipe management system designed for families. This add-o
 1. Navigate to **Settings** > **Add-ons** > **Add-on Store**
 2. Click the menu (three dots) and select **Repositories**
 3. Add: `https://github.com/Domocn/mise-home-assistant-addon`
-4. Find "Mise" in the add-on list and click **Install**
+4. Find "Laro" in the add-on list and click **Install**
 5. Wait for the installation to complete (may take longer than v1.x due to PostgreSQL/Redis)
 6. Configure the add-on options (see below)
 7. Click **Start**
@@ -88,7 +88,7 @@ The add-on will attempt to migrate your data automatically on first startup:
 1. **Backup your data** via Home Assistant: Settings > System > Backups
 2. Update to version 2.0.0
 3. Start the add-on
-4. Check logs for migration status: `/var/log/mise/migration.log`
+4. Check logs for migration status: `/var/log/laro/migration.log`
 5. If migration fails, restore from backup and report issue
 
 ### Manual Migration
@@ -97,7 +97,7 @@ If automatic migration fails:
 
 1. Export your MongoDB data (from v1.x):
    ```bash
-   docker exec mise-addon mongodump --out=/data/backup
+   docker exec laro-addon mongodump --out=/data/backup
    ```
 2. Use the provided migration tool (see GitHub repository)
 3. Import into PostgreSQL
@@ -190,7 +190,7 @@ enable_flower_dashboard: false  # Save resources
 For the best privacy and performance, run Ollama alongside Home Assistant:
 
 ### Option 1: Ollama Add-on
-Install the Ollama add-on from the Home Assistant Add-on Store, then configure Mise:
+Install the Ollama add-on from the Home Assistant Add-on Store, then configure Laro:
 ```yaml
 llm_provider: ollama
 ollama_url: http://homeassistant.local:11434
@@ -263,7 +263,7 @@ The add-on data is included in Home Assistant backups. To backup manually:
 
 1. Go to **Settings** > **System** > **Backups**
 2. Create a new backup
-3. Select the Mise add-on data
+3. Select the Laro add-on data
 
 **Backup includes:**
 - PostgreSQL database (all recipes, users, meal plans)
@@ -279,25 +279,25 @@ View logs for each service:
 
 ```bash
 # All services
-docker exec mise-addon tail -f /var/log/mise/supervisord.log
+docker exec laro-addon tail -f /var/log/laro/supervisord.log
 
 # PostgreSQL
-docker exec mise-addon tail -f /var/log/mise/postgres.log
+docker exec laro-addon tail -f /var/log/laro/postgres.log
 
 # Redis
-docker exec mise-addon tail -f /var/log/mise/redis.log
+docker exec laro-addon tail -f /var/log/laro/redis.log
 
 # Backend API
-docker exec mise-addon tail -f /var/log/mise/backend.log
+docker exec laro-addon tail -f /var/log/laro/backend.log
 
 # Celery Worker
-docker exec mise-addon tail -f /var/log/mise/worker.log
+docker exec laro-addon tail -f /var/log/laro/worker.log
 
 # Flower Dashboard
-docker exec mise-addon tail -f /var/log/mise/flower.log
+docker exec laro-addon tail -f /var/log/laro/flower.log
 
 # Nginx
-docker exec mise-addon tail -f /var/log/mise/nginx.log
+docker exec laro-addon tail -f /var/log/laro/nginx.log
 ```
 
 ### Flower Dashboard
@@ -327,7 +327,7 @@ Response:
 ```json
 {
   "status": "healthy",
-  "app": "Mise",
+  "app": "Laro",
   "version": "2.0.0",
   "database": "postgresql",
   "redis": {
@@ -347,7 +347,7 @@ Response:
 
 **Check logs:**
 ```bash
-docker logs mise-addon
+docker logs laro-addon
 ```
 
 **Common issues:**
@@ -357,7 +357,7 @@ docker logs mise-addon
 
 **Solutions:**
 - Increase Home Assistant RAM allocation
-- Check `/var/log/mise/postgres.log` for database errors
+- Check `/var/log/laro/postgres.log` for database errors
 - Ensure ports are not used by other add-ons
 
 ### Database issues
@@ -365,19 +365,19 @@ docker logs mise-addon
 **PostgreSQL not starting:**
 ```bash
 # Check PostgreSQL logs
-docker exec mise-addon cat /var/log/mise/postgres-error.log
+docker exec laro-addon cat /var/log/laro/postgres-error.log
 
 # Check data directory permissions
-docker exec mise-addon ls -la /data/postgres
+docker exec laro-addon ls -la /data/postgres
 
 # Manually test PostgreSQL
-docker exec mise-addon su - postgres -c "psql -d mise -c 'SELECT version();'"
+docker exec laro-addon su - postgres -c "psql -d laro -c 'SELECT version();'"
 ```
 
 **Reset database (⚠️ DESTROYS ALL DATA):**
 ```bash
-docker exec mise-addon rm -rf /data/postgres
-docker restart mise-addon
+docker exec laro-addon rm -rf /data/postgres
+docker restart laro-addon
 ```
 
 ### Can't import recipes
@@ -385,7 +385,7 @@ docker restart mise-addon
 **Check background worker:**
 ```bash
 # View worker logs
-docker exec mise-addon tail -f /var/log/mise/worker.log
+docker exec laro-addon tail -f /var/log/laro/worker.log
 
 # Check Flower dashboard
 open http://[homeassistant-ip]:5555
@@ -408,13 +408,13 @@ open http://[homeassistant-ip]:5555
 **Test Redis:**
 ```bash
 # Check Redis is running
-docker exec mise-addon redis-cli ping
+docker exec laro-addon redis-cli ping
 
 # View Redis logs
-docker exec mise-addon cat /var/log/mise/redis.log
+docker exec laro-addon cat /var/log/laro/redis.log
 
 # Check Redis memory
-docker exec mise-addon redis-cli INFO memory
+docker exec laro-addon redis-cli INFO memory
 ```
 
 ### Slow performance
@@ -450,7 +450,7 @@ docker exec mise-addon redis-cli INFO memory
 
 **Check migration logs:**
 ```bash
-docker exec mise-addon cat /var/log/mise/migration.log
+docker exec laro-addon cat /var/log/laro/migration.log
 ```
 
 **Manual recovery:**
@@ -467,7 +467,7 @@ docker exec mise-addon cat /var/log/mise/migration.log
 - "Connection lost" messages
 
 **Solutions:**
-- Check Redis is running: `docker exec mise-addon redis-cli ping`
+- Check Redis is running: `docker exec laro-addon redis-cli ping`
 - Verify `REDIS_PUBSUB_ENABLED=true` in environment
 - Check backend logs for Redis connection errors
 - Ensure Home Assistant ingress not blocking WebSocket upgrades
@@ -531,7 +531,7 @@ curl http://localhost:8001/api/jobs/JOB_ID \
 
 ## Support
 
-- Mise App: https://github.com/Domocn/laro-priv
+- Laro App: https://github.com/Domocn/laro-priv
 - Add-on Issues: https://github.com/Domocn/mise-home-assistant-addon/issues
 - Main App Documentation: https://github.com/Domocn/laro-priv/blob/main/README.md
 - Background Jobs Guide: https://github.com/Domocn/laro-priv/blob/main/BACKGROUND_JOBS.md
