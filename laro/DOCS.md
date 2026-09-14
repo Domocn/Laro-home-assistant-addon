@@ -2,13 +2,11 @@
 
 ## Overview
 
-Laro is a self-hosted recipe management system designed for families. This add-on packages Laro to run seamlessly within Home Assistant, providing a privacy-focused solution for managing your recipes, meal plans, and shopping lists.
+Laro is a recipe management system designed for families. This **Supervisor add-on** packages Laro to run on Home Assistant OS (PostgreSQL, Redis, Celery, Ingress UI).
 
-**Version 2.0.0** includes major architectural improvements:
-- ✅ **PostgreSQL 15** - High-performance relational database
-- ✅ **Redis 7** - Pub/Sub for real-time updates and job queue
-- ✅ **Celery + Flower** - Background job processing with monitoring dashboard
-- ✅ **Multi-instance support** - Horizontal scaling ready
+**Cloud / remote Laro:** If you use [laro.food](https://laro.food) or another hosted Laro URL, do **not** install this add-on. Use the [custom integration](../../homeassistant-integration/README.md) with URL `https://laro.food` and an API token instead.
+
+**Current add-on config version:** see `config.yaml` (4.x). Older changelog notes below may refer to earlier 2.x milestones.
 
 ## Features
 

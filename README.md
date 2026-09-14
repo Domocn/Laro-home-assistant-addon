@@ -2,7 +2,15 @@
 
 [![Open your Home Assistant instance and show the add add-on repository dialog with a specific repository URL pre-filled.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2FDomocn%2Fmise-home-assistant-addon)
 
-Home Assistant add-on repository for [Laro](https://github.com/Domocn/Laro) - bring order to your larder.
+Home Assistant **Supervisor add-on** repository for [Laro](https://github.com/Domocn/Laro) — run a full self-hosted Laro stack inside Home Assistant OS.
+
+## Cloud users (laro.food)
+
+If you use **[laro.food](https://laro.food)**, you do **not** need this add-on.
+
+Install the **Laro custom integration** instead and set the server URL to `https://laro.food` with an API token from **Settings → API Tokens**.
+
+See [`../homeassistant-integration/README.md`](../homeassistant-integration/README.md).
 
 ## Add-ons
 
@@ -12,12 +20,13 @@ Home Assistant add-on repository for [Laro](https://github.com/Domocn/Laro) - br
 ![Supports aarch64 Architecture][aarch64-shield]
 ![Supports armv7 Architecture][armv7-shield]
 
-Self-hosted family recipe management, meal planning, and cooking assistant.
+Self-hosted family recipe management, meal planning, and cooking assistant **running on your HA box**.
 
 **Features:**
 - Recipe management with AI-powered import from any URL
 - Weekly meal planning with drag-and-drop calendar
-- Auto-generated shopping lists
+- Auto-generated shopping lists (aisles, offline-friendly web UI when used from ingress)
+- UK-first barcode / nutrition helpers
 - Step-by-step cooking mode
 - Multi-user household support
 - Multiple LLM providers (Ollama, OpenAI, Anthropic, Google)
@@ -40,7 +49,7 @@ See the [Laro add-on documentation](./laro/DOCS.md) for detailed configuration o
 
 ## Support
 
-- [Laro Repository](https://github.com/Domocn/Laro)
+- [Laro public repo](https://github.com/Domocn/Laro)
 - [Issue Tracker](https://github.com/Domocn/mise-home-assistant-addon/issues)
 
 ## License

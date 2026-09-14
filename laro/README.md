@@ -1,6 +1,17 @@
 # Laro - Home Assistant Add-on
 
-Self-hosted family recipe management, meal planning, and cooking assistant for Home Assistant.
+Self-hosted family recipe management, meal planning, and cooking assistant for Home Assistant OS.
+
+## Using laro.food instead?
+
+This add-on **runs Laro on your Home Assistant machine**. It is not a bridge to the cloud app.
+
+For **[laro.food](https://laro.food)** (or any remote Laro server), install the **custom integration** and set:
+
+- URL: `https://laro.food`
+- Token: from Laro **Settings → API Tokens**
+
+See [`../../homeassistant-integration/README.md`](../../homeassistant-integration/README.md).
 
 ## About
 
@@ -9,10 +20,11 @@ Laro is a comprehensive recipe management system that runs directly on your Home
 - **Recipe Management**: Store, organize, and search your family recipes
 - **AI-Powered Import**: Import recipes from any URL using AI
 - **Meal Planning**: Plan your weekly meals with drag-and-drop calendar
-- **Shopping Lists**: Auto-generate shopping lists from meal plans
+- **Shopping Lists**: Auto-generate shopping lists from meal plans (aisles + offline-friendly web UI)
+- **Barcode / nutrition**: UK-first Open Prices helpers
 - **Cooking Mode**: Step-by-step cooking guidance
 - **Multi-User Support**: Household management with multiple users
-- **Privacy-First**: All data stays on your Home Assistant
+- **Privacy-First**: All add-on data stays on your Home Assistant host
 
 ## Installation
 
@@ -77,8 +89,3 @@ enable_oauth_google: true
 google_client_id: your-client-id
 google_client_secret: your-client-secret
 ```
-
-## Support
-
-- [Documentation](https://github.com/Domocn/Laro)
-- [Issue Tracker](https://github.com/Domocn/Laro/issues)
