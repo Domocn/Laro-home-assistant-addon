@@ -1,9 +1,9 @@
 # Home Assistant Add-on Configuration
 name: "Laro"
-version: "4.0.7"
+version: "4.0.8"
 slug: "laro"
 description: "Self-hosted family recipe management with PostgreSQL, Redis, and background job processing"
-url: "https://github.com/Domocn/laro-priv"
+url: "https://github.com/Domocn/Laro"
 arch:
   - amd64
   - aarch64

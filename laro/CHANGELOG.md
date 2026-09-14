@@ -2,6 +2,11 @@
 
 All notable changes to the Laro Home Assistant Add-on will be documented in this file.
 
+## [4.0.8] - 2026-09-14
+
+### Fixed
+- Build clones public `Domocn/Laro` instead of private `laro-priv` (fixes Supervisor Docker 404)
+
 ## [4.0.7] - 2026-09-14
 
 ### Changed
