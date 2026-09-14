@@ -1,0 +1,19 @@
+{
+  "domain": "laro",
+  "name": "Laro",
+  "codeowners": [
+    "@Domocn"
+  ],
+  "config_flow": true,
+  "dependencies": [],
+  "documentation": "https://github.com/Domocn/Laro-home-assistant-addon",
+  "iot_class": "cloud_polling",
+  "issue_tracker": "https://github.com/Domocn/Laro/issues",
+  "requirements": [
+    "aiohttp>=3.8.0"
+  ],
+  "version": "1.3.0",
+  "zeroconf": [
+    "_laro._tcp.local."
+  ]
+}

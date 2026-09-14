@@ -1,18 +1,28 @@
-# Laro Home Assistant Add-ons
+# Laro Home Assistant Add-ons & HACS integration
 
-[![Open your Home Assistant instance and show the add add-on repository dialog with a specific repository URL pre-filled.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2FDomocn%2Flaro-home-assistant-addon)
+[![Open your Home Assistant instance and show the add add-on repository dialog with a specific repository URL pre-filled.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2FDomocn%2FLaro-home-assistant-addon)
 
-Home Assistant **Supervisor add-on** repository for [Laro](https://github.com/Domocn/Laro) — run a full self-hosted Laro stack inside Home Assistant OS.
+Public Home Assistant repository for [Laro](https://laro.food):
+
+1. **HACS custom integration** — sensors, meal calendar, services (cloud or self-host)
+2. **Supervisor add-on** — run a full Laro stack inside Home Assistant OS
+
+Repository URL (both): `https://github.com/Domocn/Laro-home-assistant-addon`
 
 ## Cloud users (laro.food)
 
-If you use **[laro.food](https://laro.food)**, you do **not** need this add-on.
+Use the **HACS integration** only. You do **not** need the Supervisor add-on.
 
-Install the **Laro custom integration** instead and set the server URL to `https://laro.food` with an API token from **Settings → API Tokens**.
+### Install via HACS
 
-See [`../homeassistant-integration/README.md`](../homeassistant-integration/README.md).
+1. **HACS → Integrations** → ⋮ → **Custom repositories**
+2. Repository: `https://github.com/Domocn/Laro-home-assistant-addon`
+3. Category: **Integration**
+4. Download **Laro** → restart Home Assistant
+5. **Settings → Devices & Services → Add Integration → Laro**
+6. Server URL: `https://laro.food` + an API token from Laro **Settings → API Tokens**
 
-## Add-ons
+## Supervisor add-on (self-host inside HA OS)
 
 ### [Laro](./laro)
 
@@ -25,32 +35,28 @@ Self-hosted family recipe management, meal planning, and cooking assistant **run
 **Features:**
 - Recipe management with AI-powered import from any URL
 - Weekly meal planning with drag-and-drop calendar
-- Auto-generated shopping lists (aisles, offline-friendly web UI when used from ingress)
+- Auto-generated shopping lists
 - UK-first barcode / nutrition helpers
 - Step-by-step cooking mode
 - Multi-user household support
 - Multiple LLM providers (Ollama, OpenAI, Anthropic, Google)
 
-## Installation
+### Installation
 
 1. Click the button above, or manually add this repository to Home Assistant:
-   - Go to **Settings** → **Add-ons** → **Add-on Store**
+   - Go to **Settings → Add-ons → Add-on Store**
    - Click the ⋮ menu → **Repositories**
    - Add: `https://github.com/Domocn/Laro-home-assistant-addon`
-2. Find "Laro" in the add-on list
-3. Click **Install**
-4. Configure your options
-5. Click **Start**
-6. Access via the Home Assistant sidebar
+2. Find **Laro** in the add-on list
+3. Click **Install** → configure → **Start**
+4. Access via the Home Assistant sidebar
 
-## Configuration
-
-See the [Laro add-on documentation](./laro/DOCS.md) for detailed configuration options.
+See the [Laro add-on documentation](./laro/DOCS.md) for configuration options.
 
 ## Support
 
 - [Laro public repo](https://github.com/Domocn/Laro)
-- [Issue Tracker](https://github.com/Domocn/Laro-home-assistant-addon/issues)
+- [Issue Tracker](https://github.com/Domocn/Laro/issues)
 
 ## License
 
