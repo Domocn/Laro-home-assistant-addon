@@ -119,7 +119,7 @@ RUN --mount=type=cache,target=/root/.yarn \
 ### GitHub Actions
 Check build times in the Actions tab:
 ```
-https://github.com/Domocn/mise-home-assistant-addon/actions
+https://github.com/Domocn/laro-home-assistant-addon/actions
 ```
 
 ### Manual Testing
@@ -138,7 +138,7 @@ docker builder du
 
 If issues occur, the previous Dockerfile is available in git history:
 ```bash
-git show 1b9add2:laro-home-assistant-addon/mise/Dockerfile > Dockerfile.backup
+git show 1b9add2:laro-home-assistant-addon/laro/Dockerfile > Dockerfile.backup
 ```
 
 ## Additional Optimization Opportunities

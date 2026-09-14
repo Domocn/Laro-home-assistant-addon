@@ -40,7 +40,7 @@ Before upgrading to v2.0.0, complete these steps:
 
 - [ ] **Backup your data** via Home Assistant
   - Go to Settings > System > Backups
-  - Create a full backup that includes the Mise add-on
+  - Create a full backup that includes the Laro add-on
   - Download the backup file to a safe location
 
 - [ ] **Verify you have 4GB+ RAM** available
@@ -72,17 +72,17 @@ The add-on includes an automatic migration process:
 1. **Create Home Assistant backup**
    ```
    Settings > System > Backups > Create Backup
-   Include: Mise add-on
+   Include: Laro add-on
    ```
 
 2. **Stop the add-on**
    ```
-   Settings > Add-ons > Mise > Stop
+   Settings > Add-ons > Laro > Stop
    ```
 
 3. **Update to v2.0.0**
    ```
-   Settings > Add-ons > Mise > Update
+   Settings > Add-ons > Laro > Update
    Wait for update to complete
    ```
 
@@ -98,18 +98,18 @@ The add-on includes an automatic migration process:
 
 5. **Start the add-on**
    ```
-   Settings > Add-ons > Mise > Start
+   Settings > Add-ons > Laro > Start
    Wait ~60-90 seconds for all services to initialize
    ```
 
 6. **Check migration logs**
    ```bash
    # From Home Assistant host terminal:
-   docker exec addon_mise tail -f /var/log/mise/migration.log
+   docker exec addon_laro tail -f /var/log/laro/migration.log
    ```
 
 7. **Verify migration success**
-   - Open Mise UI
+   - Open Laro UI
    - Check that your recipes are visible
    - Try creating a test recipe
    - Test recipe import from URL
@@ -128,10 +128,10 @@ If automatic migration fails or you want more control:
 1. **Export data from v1.x**
    ```bash
    # Connect to Home Assistant terminal
-   docker exec addon_mise mongodump --out=/data/backup
+   docker exec addon_laro mongodump --out=/data/backup
 
    # Copy backup to safe location
-   docker cp addon_mise:/data/backup ./laro-backup
+   docker cp addon_laro:/data/backup ./laro-backup
    ```
 
 2. **Upgrade to v2.0.0**
@@ -145,12 +145,12 @@ If automatic migration fails or you want more control:
    # Run migration
    python3 migrate_mongodb_to_postgres.py \
      --mongodb-dump=./laro-backup \
-     --postgres-url="postgresql://mise:mise@localhost:5432/mise"
+     --postgres-url="postgresql://laro:laro@localhost:5432/laro"
    ```
 
 4. **Restart add-on**
    ```bash
-   docker restart addon_mise
+   docker restart addon_laro
    ```
 
 ### Option 3: Fresh Install (Clean Slate)
@@ -163,12 +163,12 @@ If you don't need to preserve existing data:
 
 2. **Uninstall v1.x completely**
    ```
-   Settings > Add-ons > Mise > Uninstall
+   Settings > Add-ons > Laro > Uninstall
    ```
 
 3. **Install v2.0.0 fresh**
    ```
-   Settings > Add-ons > Add-on Store > Mise > Install
+   Settings > Add-ons > Add-on Store > Laro > Install
    ```
 
 4. **Re-import recipes**
@@ -207,7 +207,7 @@ After migration, verify everything works:
 ### 1. Database Check
 ```bash
 # Check PostgreSQL is running
-docker exec addon_mise psql -U mise -d mise -c "SELECT COUNT(*) FROM recipes;"
+docker exec addon_laro psql -U laro -d laro -c "SELECT COUNT(*) FROM recipes;"
 
 # Should show your recipe count
 ```
@@ -215,14 +215,14 @@ docker exec addon_mise psql -U mise -d mise -c "SELECT COUNT(*) FROM recipes;"
 ### 2. Redis Check
 ```bash
 # Check Redis is running
-docker exec addon_mise redis-cli ping
+docker exec addon_laro redis-cli ping
 # Should return: PONG
 ```
 
 ### 3. Worker Check
 ```bash
 # Check Celery worker logs
-docker exec addon_mise tail -f /var/log/mise/worker.log
+docker exec addon_laro tail -f /var/log/laro/worker.log
 
 # Check Flower dashboard
 open http://[homeassistant-ip]:5555
@@ -255,16 +255,16 @@ If migration fails and you need to rollback to v1.x:
 
 2. **Downgrade add-on** (if needed)
    ```
-   Settings > Add-ons > Mise
+   Settings > Add-ons > Laro
    Click version dropdown
    Select v1.x
    Install
    ```
 
 3. **Report issue**
-   - Go to: https://github.com/Domocn/mise-home-assistant-addon/issues
+   - Go to: https://github.com/Domocn/laro-home-assistant-addon/issues
    - Create new issue with:
-     - Migration logs from `/var/log/mise/migration.log`
+     - Migration logs from `/var/log/laro/migration.log`
      - System specs (RAM, CPU, Home Assistant version)
      - Error messages
 
@@ -277,9 +277,9 @@ If migration fails and you need to rollback to v1.x:
 **Symptom:** Add-on starts but migration doesn't complete after 30 minutes
 
 **Solutions:**
-1. Check migration logs: `docker exec addon_mise cat /var/log/mise/migration.log`
+1. Check migration logs: `docker exec addon_laro cat /var/log/laro/migration.log`
 2. Check available resources (RAM, disk space)
-3. Restart add-on: Settings > Add-ons > Mise > Restart
+3. Restart add-on: Settings > Add-ons > Laro > Restart
 4. If stuck, use manual migration (Option 2)
 
 ### "Out of memory" errors
@@ -303,15 +303,15 @@ If migration fails and you need to rollback to v1.x:
 **Symptom:** Add-on starts but PostgreSQL service fails
 
 **Solutions:**
-1. Check PostgreSQL logs: `docker exec addon_mise cat /var/log/mise/postgres-error.log`
+1. Check PostgreSQL logs: `docker exec addon_laro cat /var/log/laro/postgres-error.log`
 2. Check data directory permissions:
    ```bash
-   docker exec addon_mise ls -la /data/postgres
+   docker exec addon_laro ls -la /data/postgres
    ```
 3. Reset PostgreSQL (⚠️ DESTROYS MIGRATED DATA):
    ```bash
-   docker exec addon_mise rm -rf /data/postgres
-   docker restart addon_mise
+   docker exec addon_laro rm -rf /data/postgres
+   docker restart addon_laro
    # Re-run migration
    ```
 
@@ -331,11 +331,11 @@ If migration fails and you need to rollback to v1.x:
 **Solutions:**
 1. Check worker is running:
    ```bash
-   docker exec addon_mise supervisorctl status worker
+   docker exec addon_laro supervisorctl status worker
    ```
 2. Check worker logs:
    ```bash
-   docker exec addon_mise tail -f /var/log/mise/worker.log
+   docker exec addon_laro tail -f /var/log/laro/worker.log
    ```
 3. Open Flower dashboard: http://[homeassistant-ip]:5555
 4. Increase worker concurrency:
@@ -350,7 +350,7 @@ If migration fails and you need to rollback to v1.x:
 **Solutions:**
 1. Check Redis is running:
    ```bash
-   docker exec addon_mise redis-cli ping
+   docker exec addon_laro redis-cli ping
    ```
 2. Verify Redis Pub/Sub enabled in config
 3. Check backend logs for Redis connection errors
@@ -421,8 +421,8 @@ After successful migration, explore new features:
 ## Getting Help
 
 **Before asking for help:**
-1. Check migration logs: `/var/log/mise/migration.log`
-2. Check all service logs: `/var/log/mise/*.log`
+1. Check migration logs: `/var/log/laro/migration.log`
+2. Check all service logs: `/var/log/laro/*.log`
 3. Try troubleshooting steps above
 4. Verify minimum requirements (4GB RAM)
 
@@ -435,7 +435,7 @@ Include:
 - Steps to reproduce
 
 **Support channels:**
-- GitHub Issues: https://github.com/Domocn/mise-home-assistant-addon/issues
+- GitHub Issues: https://github.com/Domocn/laro-home-assistant-addon/issues
 - Main Project: https://github.com/Domocn/laro-priv
 - Documentation: https://github.com/Domocn/laro-priv/tree/main/docs
 

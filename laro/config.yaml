@@ -93,7 +93,7 @@ schema:
 # Environment variables from options
 environment:
   LARO_HA_ADDON: "true"
-  MISE_HA_ADDON: "true"  # legacy alias
+  LARO_HA_ADDON: "true"  # legacy alias
 
 # Backup paths
 backup_exclude:

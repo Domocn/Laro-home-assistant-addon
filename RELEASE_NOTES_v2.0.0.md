@@ -1,4 +1,4 @@
-# Release Notes: Mise Home Assistant Add-on v2.0.0
+# Release Notes: Laro Home Assistant Add-on v2.0.0
 
 **Release Date:** 2026-01-19
 **Type:** Major Release (Breaking Change)
@@ -10,7 +10,7 @@
 
 ### Major Architectural Upgrade
 
-Version 2.0.0 represents a complete architectural overhaul of the Mise Home Assistant add-on, bringing it in line with modern application architecture and enabling powerful new features.
+Version 2.0.0 represents a complete architectural overhaul of the Laro Home Assistant add-on, bringing it in line with modern application architecture and enabling powerful new features.
 
 ---
 
@@ -218,10 +218,10 @@ enable_flower_dashboard: false
 **⚠️ BACKUP FIRST!**
 
 1. Create Home Assistant backup (Settings > System > Backups)
-2. Update add-on to v2.0.0 (Settings > Add-ons > Mise > Update)
+2. Update add-on to v2.0.0 (Settings > Add-ons > Laro > Update)
 3. Configure new options (optional)
 4. Start add-on and wait ~60-90 seconds
-5. Check migration logs: `/var/log/mise/migration.log`
+5. Check migration logs: `/var/log/laro/migration.log`
 6. Verify all data migrated successfully
 7. All users must log in again
 
@@ -279,7 +279,7 @@ enable_flower_dashboard: false
 - Better OAuth token handling
 
 ### Database
-- PostgreSQL with password authentication (user: mise)
+- PostgreSQL with password authentication (user: laro)
 - Redis bound to localhost only (127.0.0.1:6379)
 - No external database access
 
@@ -320,12 +320,12 @@ enable_flower_dashboard: false
 ```
 
 **Service Logs:**
-- `/var/log/mise/postgres.log` - PostgreSQL logs
-- `/var/log/mise/redis.log` - Redis logs
-- `/var/log/mise/worker.log` - Celery worker logs
-- `/var/log/mise/flower.log` - Flower dashboard logs
-- `/var/log/mise/backend.log` - Backend API logs
-- `/var/log/mise/nginx.log` - Frontend logs
+- `/var/log/laro/postgres.log` - PostgreSQL logs
+- `/var/log/laro/redis.log` - Redis logs
+- `/var/log/laro/worker.log` - Celery worker logs
+- `/var/log/laro/flower.log` - Flower dashboard logs
+- `/var/log/laro/backend.log` - Backend API logs
+- `/var/log/laro/nginx.log` - Frontend logs
 
 ---
 
@@ -361,7 +361,7 @@ All features have been tested with:
 
 ## 🙏 Acknowledgments
 
-This release represents months of architectural improvements to bring Mise in line with modern application standards. Special thanks to:
+This release represents months of architectural improvements to bring Laro in line with modern application standards. Special thanks to:
 
 - The PostgreSQL team for their excellent documentation
 - The Celery and Flower projects for background job processing
@@ -410,14 +410,14 @@ This release represents months of architectural improvements to bring Mise in li
 ### Getting Help
 - **Documentation:** [DOCS.md](DOCS.md)
 - **Upgrade Guide:** [UPGRADE_GUIDE.md](UPGRADE_GUIDE.md)
-- **GitHub Issues:** https://github.com/Domocn/mise-home-assistant-addon/issues
+- **GitHub Issues:** https://github.com/Domocn/laro-home-assistant-addon/issues
 - **Main Project:** https://github.com/Domocn/laro-priv
 
 ### Reporting Bugs
 When reporting bugs, include:
 - Home Assistant version
 - System resources (RAM, CPU, storage)
-- Add-on logs from `/var/log/mise/`
+- Add-on logs from `/var/log/laro/`
 - Migration logs (if upgrade issue)
 - Steps to reproduce
 
@@ -425,7 +425,7 @@ When reporting bugs, include:
 
 ## 📦 Download
 
-**GitHub Release:** https://github.com/Domocn/mise-home-assistant-addon/releases/tag/v2.0.0
+**GitHub Release:** https://github.com/Domocn/laro-home-assistant-addon/releases/tag/v2.0.0
 
 **Home Assistant Add-on Store:**
 ```
@@ -458,13 +458,13 @@ Version: 2.0.0
 
 ## 📜 License
 
-MIT License - Same as main Mise project
+MIT License - Same as main Laro project
 
 ---
 
 ## 🎊 Conclusion
 
-Version 2.0.0 is the most significant release in Mise Home Assistant add-on history. While it requires migration effort, the benefits are substantial:
+Version 2.0.0 is the most significant release in Laro Home Assistant add-on history. While it requires migration effort, the benefits are substantial:
 
 - ✅ **3x faster** database operations
 - ✅ **Real-time sync** across devices
@@ -480,5 +480,5 @@ We're confident this upgrade will significantly improve your experience managing
 
 *For questions, feedback, or issues, please visit our GitHub repository.*
 
-**Mise Team**
+**Laro Team**
 January 2026

@@ -1,4 +1,4 @@
-# Test Report: Mise Home Assistant Add-on v2.0.0
+# Test Report: Laro Home Assistant Add-on v2.0.0
 
 **Test Date:** 2026-01-19
 **Tester:** Automated Testing Suite
@@ -110,7 +110,7 @@ All static analysis and configuration validation tests have passed successfully.
 - ✅ Permission setting (2 chown commands)
 
 **Environment Variables Set:**
-- ✅ `DATABASE_URL=postgresql://mise:mise@127.0.0.1:5432/mise`
+- ✅ `DATABASE_URL=postgresql://laro:laro@127.0.0.1:5432/laro`
 - ✅ `REDIS_URL=redis://127.0.0.1:6379`
 - ✅ `REDIS_PUBSUB_ENABLED=true`
 - ✅ All LLM configuration variables
@@ -123,7 +123,7 @@ All static analysis and configuration validation tests have passed successfully.
 - File size: 101 lines
 - YAML syntax check: ✅ Valid YAML (yaml.safe_load passed)
 - Version: ✅ `2.0.0`
-- Slug: ✅ `mise`
+- Slug: ✅ `laro`
 - Description: ✅ Updated with PostgreSQL, Redis, background jobs
 
 **Configuration Options (All Present):**
@@ -163,16 +163,16 @@ All static analysis and configuration validation tests have passed successfully.
 - ✅ Initialization check: `if [ ! -d /data/postgres/base ]`
 - ✅ initdb command: `/usr/lib/postgresql/15/bin/initdb -D /data/postgres`
 - ✅ Configuration injection: `max_connections`, `shared_buffers`, `listen_addresses`
-- ✅ User creation: `CREATE USER mise WITH PASSWORD 'mise';`
-- ✅ Database creation: `CREATE DATABASE mise OWNER mise;`
-- ✅ Permissions grant: `GRANT ALL PRIVILEGES ON DATABASE mise TO mise;`
+- ✅ User creation: `CREATE USER laro WITH PASSWORD 'laro';`
+- ✅ Database creation: `CREATE DATABASE laro OWNER laro;`
+- ✅ Permissions grant: `GRANT ALL PRIVILEGES ON DATABASE laro TO laro;`
 
 **supervisord.conf:**
 - ✅ Command: `/usr/lib/postgresql/15/bin/postgres -D /data/postgres`
 - ✅ User: `postgres`
 - ✅ Autostart: `true`
 - ✅ Priority: `100` (starts first)
-- ✅ Logs: `/var/log/mise/postgres.log`
+- ✅ Logs: `/var/log/laro/postgres.log`
 
 **Environment:**
 - ✅ `DATABASE_URL` correctly formatted
@@ -199,7 +199,7 @@ All static analysis and configuration validation tests have passed successfully.
 - ✅ Eviction policy: `allkeys-lru` (appropriate)
 - ✅ User: `redis`
 - ✅ Priority: `150` (starts second)
-- ✅ Logs: `/var/log/mise/redis.log`
+- ✅ Logs: `/var/log/laro/redis.log`
 
 **Environment:**
 - ✅ `REDIS_URL=redis://127.0.0.1:6379`
@@ -214,7 +214,7 @@ All static analysis and configuration validation tests have passed successfully.
 - ✅ Directory: `/app/backend` (correct working directory)
 - ✅ Autostart: `true`
 - ✅ Priority: `250` (starts after Backend)
-- ✅ Logs: `/var/log/mise/worker.log`
+- ✅ Logs: `/var/log/laro/worker.log`
 - ✅ Environment: `PATH="/opt/venv/bin:..."`
 
 **config.yaml:**
@@ -230,7 +230,7 @@ All static analysis and configuration validation tests have passed successfully.
 - ✅ Directory: `/app/backend`
 - ✅ Autostart: `true`
 - ✅ Priority: `260` (starts after Worker)
-- ✅ Logs: `/var/log/mise/flower.log`
+- ✅ Logs: `/var/log/laro/flower.log`
 
 **config.yaml:**
 - ✅ Optional: `enable_flower_dashboard: true`
@@ -248,7 +248,7 @@ All static analysis and configuration validation tests have passed successfully.
 **supervisord.conf:**
 - ✅ Command: `nginx -g "daemon off;"`
 - ✅ Priority: `300` (starts last)
-- ✅ Logs: `/var/log/mise/nginx.log`
+- ✅ Logs: `/var/log/laro/nginx.log`
 
 ---
 
@@ -280,7 +280,7 @@ All static analysis and configuration validation tests have passed successfully.
 - ✅ `/data/postgres/` - PostgreSQL database files
 - ✅ `/data/redis/` - Redis AOF persistence
 - ✅ `/data/uploads/` - Recipe images
-- ✅ `/var/log/mise/` - All service logs
+- ✅ `/var/log/laro/` - All service logs
 
 **Permissions:**
 - ✅ `/data/postgres`: `postgres:postgres`, mode `700`
@@ -290,7 +290,7 @@ All static analysis and configuration validation tests have passed successfully.
 #### Test 3.3: Environment Variable Propagation
 **Status:** ✅ PASSED
 
-**Written to `/etc/mise.env`:**
+**Written to `/etc/laro.env`:**
 - ✅ All database connection strings
 - ✅ All Redis configuration
 - ✅ All LLM settings
@@ -299,9 +299,9 @@ All static analysis and configuration validation tests have passed successfully.
 - ✅ PATH variable includes `/opt/venv/bin`
 
 **Injected into services:**
-- ✅ Backend reads from `/etc/mise.env`
-- ✅ Worker reads from `/etc/mise.env`
-- ✅ Flower reads from `/etc/mise.env`
+- ✅ Backend reads from `/etc/laro.env`
+- ✅ Worker reads from `/etc/laro.env`
+- ✅ Flower reads from `/etc/laro.env`
 
 ---
 
@@ -399,7 +399,7 @@ All static analysis and configuration validation tests have passed successfully.
 **Database Security:**
 - ✅ PostgreSQL bound to localhost (127.0.0.1)
 - ✅ Password authentication enabled
-- ✅ Database user: `mise` (not superuser)
+- ✅ Database user: `laro` (not superuser)
 - ✅ Data directory permissions: 700
 
 **Redis Security:**
@@ -451,8 +451,8 @@ All static analysis and configuration validation tests have passed successfully.
 **Reason:** Docker not available in test environment
 
 **Recommendation:** Before production deployment:
-1. Build Docker image: `docker build -t mise-addon:2.0.0 .`
-2. Test container startup: `docker run -it mise-addon:2.0.0`
+1. Build Docker image: `docker build -t laro-addon:2.0.0 .`
+2. Test container startup: `docker run -it laro-addon:2.0.0`
 3. Verify all 6 services start successfully
 4. Test PostgreSQL initialization
 5. Test Redis connectivity
@@ -524,7 +524,7 @@ All static analysis and configuration validation tests have passed successfully.
 ### Overall Assessment: ✅ PASSED - PRODUCTION READY
 
 **Summary:**
-The Mise Home Assistant Add-on v2.0.0 has successfully passed all static analysis and configuration validation tests. The migration from MongoDB to PostgreSQL, addition of Redis for Pub/Sub, and integration of Celery + Flower for background jobs has been implemented correctly.
+The Laro Home Assistant Add-on v2.0.0 has successfully passed all static analysis and configuration validation tests. The migration from MongoDB to PostgreSQL, addition of Redis for Pub/Sub, and integration of Celery + Flower for background jobs has been implemented correctly.
 
 **Confidence Level:** 95%
 

@@ -1,13 +1,13 @@
 # Changelog
 
-All notable changes to the Mise Home Assistant Add-on will be documented in this file.
+All notable changes to the Laro Home Assistant Add-on will be documented in this file.
 
 ## [3.0.4] - 2026-01-19
 
 ### Fixed
 - Fixed AuthContext.js URL construction for extended user fetch (prevents invalid 'null/api/...' URLs in same-origin proxy mode)
 - Fixed api.js to use window.location.hash instead of pathname for HashRouter compatibility
-- Fixed run.sh to properly set MISE_HA_ADDON environment variable to 'true' (enables HA addon-specific features and debug logging)
+- Fixed run.sh to properly set LARO_HA_ADDON environment variable to 'true' (enables HA addon-specific features and debug logging)
 
 ### Added
 - Comprehensive HA addon functionality tests covering environment config, debug router, Home Assistant integration endpoints, frontend API config, nginx configuration, and service startup
