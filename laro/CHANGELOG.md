@@ -2,6 +2,11 @@
 
 All notable changes to the Laro Home Assistant Add-on will be documented in this file.
 
+## [4.0.10] - 2026-09-14
+
+### Fixed
+- Pin `Pint==0.25.3` so Supervisor build works on Debian Bookworm Python 3.11 (0.26+ needs 3.12+)
+
 ## [4.0.9] - 2026-09-14
 
 ### Fixed

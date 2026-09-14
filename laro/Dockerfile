@@ -17,8 +17,8 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     corepack prepare yarn@1.22.22 --activate
 
 # Cache bust + version (Supervisor also passes BUILD_VERSION). Never use private laro-priv here — it 404s.
-ARG BUILD_VERSION=4.0.9
-ARG LARO_ADDON_VERSION=4.0.9
+ARG BUILD_VERSION=4.0.10
+ARG LARO_ADDON_VERSION=4.0.10
 ADD https://api.github.com/repos/Domocn/Laro/git/refs/heads/main /tmp/laro-version.json
 RUN echo "Building Laro HA add-on ${LARO_ADDON_VERSION} (BUILD_VERSION=${BUILD_VERSION})"
 
@@ -62,7 +62,7 @@ RUN python3 -m venv /opt/venv && \
 ENV PATH="/opt/venv/bin:$PATH"
 
 # Cache bust against public artefact (not private laro-priv)
-ARG BUILD_VERSION=4.0.9
+ARG BUILD_VERSION=4.0.10
 ADD https://api.github.com/repos/Domocn/Laro/git/refs/heads/main /tmp/laro-version-backend.json
 RUN echo "Backend stage BUILD_VERSION=${BUILD_VERSION}"
 
@@ -100,7 +100,7 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=90s --retries=3 \
 # Labels
 LABEL io.hass.name="Laro" \
     io.hass.description="Self-hosted family recipe management and meal planning with PostgreSQL, Redis, and background jobs" \
-    io.hass.version="4.0.9" \
+    io.hass.version="4.0.10" \
     io.hass.type="addon" \
     io.hass.arch="amd64|aarch64"
 
