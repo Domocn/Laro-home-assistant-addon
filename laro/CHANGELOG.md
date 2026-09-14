@@ -2,6 +2,12 @@
 
 All notable changes to the Laro Home Assistant Add-on will be documented in this file.
 
+## [4.0.11] - 2026-09-14
+
+### Fixed
+- Force Supervisor rebuild against current public `Domocn/Laro` main (Pint 0.25.3 + ISBN catalog IPv4 resilience)
+
+
 ## [4.0.10] - 2026-09-14
 
 ### Fixed
