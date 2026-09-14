@@ -2,12 +2,17 @@
 
 All notable changes to the Laro Home Assistant Add-on will be documented in this file.
 
+## [4.0.7] - 2026-09-14
+
+### Changed
+- Canonical add-on store URL casing: `Domocn/Laro-home-assistant-addon`
+
 ## [4.0.6] - 2026-09-14
 
 ### Changed
 - Rebuild against current `laro-priv` `main` after full Laro branding cleanup
 - Force Supervisor image rebuild (no legacy brand strings in cloned app sources)
-- Docs / repository metadata point at `Domocn/laro-home-assistant-addon`
+- Docs / repository metadata point at `Domocn/Laro-home-assistant-addon`
 
 ## [3.0.4] - 2026-01-19
 

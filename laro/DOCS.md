@@ -67,7 +67,7 @@ Laro is a recipe management system designed for families. This **Supervisor add-
 
 1. Navigate to **Settings** > **Add-ons** > **Add-on Store**
 2. Click the menu (three dots) and select **Repositories**
-3. Add: `https://github.com/Domocn/laro-home-assistant-addon`
+3. Add: `https://github.com/Domocn/Laro-home-assistant-addon`
 4. Find "Laro" in the add-on list and click **Install**
 5. Wait for the installation to complete (may take longer than v1.x due to PostgreSQL/Redis)
 6. Configure the add-on options (see below)
@@ -530,7 +530,7 @@ curl http://localhost:8001/api/jobs/JOB_ID \
 ## Support
 
 - Laro App: https://github.com/Domocn/laro-priv
-- Add-on Issues: https://github.com/Domocn/laro-home-assistant-addon/issues
+- Add-on Issues: https://github.com/Domocn/Laro-home-assistant-addon/issues
 - Main App Documentation: https://github.com/Domocn/laro-priv/blob/main/README.md
 - Background Jobs Guide: https://github.com/Domocn/laro-priv/blob/main/BACKGROUND_JOBS.md
 - Redis Pub/Sub Guide: https://github.com/Domocn/laro-priv/blob/main/REDIS_PUBSUB.md

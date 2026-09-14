@@ -36,7 +36,7 @@ Self-hosted family recipe management, meal planning, and cooking assistant **run
 1. Click the button above, or manually add this repository to Home Assistant:
    - Go to **Settings** → **Add-ons** → **Add-on Store**
    - Click the ⋮ menu → **Repositories**
-   - Add: `https://github.com/Domocn/laro-home-assistant-addon`
+   - Add: `https://github.com/Domocn/Laro-home-assistant-addon`
 2. Find "Laro" in the add-on list
 3. Click **Install**
 4. Configure your options
@@ -50,7 +50,7 @@ See the [Laro add-on documentation](./laro/DOCS.md) for detailed configuration o
 ## Support
 
 - [Laro public repo](https://github.com/Domocn/Laro)
-- [Issue Tracker](https://github.com/Domocn/laro-home-assistant-addon/issues)
+- [Issue Tracker](https://github.com/Domocn/Laro-home-assistant-addon/issues)
 
 ## License
 

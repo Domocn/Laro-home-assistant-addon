@@ -410,7 +410,7 @@ This release represents months of architectural improvements to bring Laro in li
 ### Getting Help
 - **Documentation:** [DOCS.md](DOCS.md)
 - **Upgrade Guide:** [UPGRADE_GUIDE.md](UPGRADE_GUIDE.md)
-- **GitHub Issues:** https://github.com/Domocn/laro-home-assistant-addon/issues
+- **GitHub Issues:** https://github.com/Domocn/Laro-home-assistant-addon/issues
 - **Main Project:** https://github.com/Domocn/laro-priv
 
 ### Reporting Bugs
@@ -425,7 +425,7 @@ When reporting bugs, include:
 
 ## 📦 Download
 
-**GitHub Release:** https://github.com/Domocn/laro-home-assistant-addon/releases/tag/v2.0.0
+**GitHub Release:** https://github.com/Domocn/Laro-home-assistant-addon/releases/tag/v2.0.0
 
 **Home Assistant Add-on Store:**
 ```

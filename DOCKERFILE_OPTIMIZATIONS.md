@@ -119,7 +119,7 @@ RUN --mount=type=cache,target=/root/.yarn \
 ### GitHub Actions
 Check build times in the Actions tab:
 ```
-https://github.com/Domocn/laro-home-assistant-addon/actions
+https://github.com/Domocn/Laro-home-assistant-addon/actions
 ```
 
 ### Manual Testing

@@ -262,7 +262,7 @@ If migration fails and you need to rollback to v1.x:
    ```
 
 3. **Report issue**
-   - Go to: https://github.com/Domocn/laro-home-assistant-addon/issues
+   - Go to: https://github.com/Domocn/Laro-home-assistant-addon/issues
    - Create new issue with:
      - Migration logs from `/var/log/laro/migration.log`
      - System specs (RAM, CPU, Home Assistant version)
@@ -435,7 +435,7 @@ Include:
 - Steps to reproduce
 
 **Support channels:**
-- GitHub Issues: https://github.com/Domocn/laro-home-assistant-addon/issues
+- GitHub Issues: https://github.com/Domocn/Laro-home-assistant-addon/issues
 - Main Project: https://github.com/Domocn/laro-priv
 - Documentation: https://github.com/Domocn/laro-priv/tree/main/docs
 
