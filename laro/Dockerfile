@@ -18,6 +18,8 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
 
 # Cache bust: fetch latest commit info to invalidate cache when repo updates
 ADD https://api.github.com/repos/Domocn/laro-priv/git/refs/heads/main /tmp/laro-version.json
+ARG LARO_ADDON_VERSION=4.0.6
+RUN echo "Building Laro HA add-on ${LARO_ADDON_VERSION}"
 
 # Clone and build frontend
 RUN git clone --depth 1 https://github.com/Domocn/laro-priv.git /laro
@@ -93,7 +95,7 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=90s --retries=3 \
 # Labels
 LABEL io.hass.name="Laro" \
     io.hass.description="Self-hosted family recipe management and meal planning with PostgreSQL, Redis, and background jobs" \
-    io.hass.version="4.0.5" \
+    io.hass.version="4.0.6" \
     io.hass.type="addon" \
     io.hass.arch="amd64|aarch64"
 

@@ -6,6 +6,7 @@ build_from:
 args:
   # Empty = same-origin; nginx proxies /api to the backend
   REACT_APP_BACKEND_URL: ""
+  LARO_ADDON_VERSION: "4.0.6"
 
 labels:
   org.opencontainers.image.title: "Laro"
