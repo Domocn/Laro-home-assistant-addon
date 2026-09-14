@@ -2,6 +2,13 @@
 
 All notable changes to the Laro Home Assistant Add-on will be documented in this file.
 
+## [4.0.9] - 2026-09-14
+
+### Fixed
+- Set `CI=false` during frontend build so CRA does not fail on eslint warnings under Supervisor
+- Align `build.yaml` / Dockerfile version args with `config.yaml`
+- Remove duplicate `LARO_HA_ADDON` environment key
+
 ## [4.0.8] - 2026-09-14
 
 ### Fixed

@@ -16,10 +16,11 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     corepack enable && \
     corepack prepare yarn@1.22.22 --activate
 
-# Cache bust against the *public* artefact (private laro-priv returns 404 in Supervisor builds)
+# Cache bust + version (Supervisor also passes BUILD_VERSION). Never use private laro-priv here — it 404s.
+ARG BUILD_VERSION=4.0.9
+ARG LARO_ADDON_VERSION=4.0.9
 ADD https://api.github.com/repos/Domocn/Laro/git/refs/heads/main /tmp/laro-version.json
-ARG LARO_ADDON_VERSION=4.0.8
-RUN echo "Building Laro HA add-on ${LARO_ADDON_VERSION}"
+RUN echo "Building Laro HA add-on ${LARO_ADDON_VERSION} (BUILD_VERSION=${BUILD_VERSION})"
 
 # Clone public Domocn/Laro (frontend is at repo root in the public artefact)
 RUN git clone --depth 1 https://github.com/Domocn/Laro.git /laro
@@ -27,6 +28,8 @@ WORKDIR /laro
 # Empty string = same-origin proxy mode (nginx proxies /api/ to backend)
 ARG REACT_APP_BACKEND_URL=
 ENV REACT_APP_BACKEND_URL=$REACT_APP_BACKEND_URL
+# Supervisor/CI often sets CI=true; CRA then fails the build on eslint warnings
+ENV CI=false
 
 # Use yarn cache mount for faster rebuilds
 RUN --mount=type=cache,target=/root/.yarn \
@@ -58,8 +61,10 @@ RUN python3 -m venv /opt/venv && \
 
 ENV PATH="/opt/venv/bin:$PATH"
 
-# Cache bust against public artefact
+# Cache bust against public artefact (not private laro-priv)
+ARG BUILD_VERSION=4.0.9
 ADD https://api.github.com/repos/Domocn/Laro/git/refs/heads/main /tmp/laro-version-backend.json
+RUN echo "Backend stage BUILD_VERSION=${BUILD_VERSION}"
 
 # Clone public artefact, install Python deps, and copy backend - using pip cache
 RUN --mount=type=cache,target=/root/.cache/pip \
@@ -95,7 +100,7 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=90s --retries=3 \
 # Labels
 LABEL io.hass.name="Laro" \
     io.hass.description="Self-hosted family recipe management and meal planning with PostgreSQL, Redis, and background jobs" \
-    io.hass.version="4.0.8" \
+    io.hass.version="4.0.9" \
     io.hass.type="addon" \
     io.hass.arch="amd64|aarch64"
 
