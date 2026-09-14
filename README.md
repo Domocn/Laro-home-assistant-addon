@@ -11,16 +11,18 @@ Repository URL (both): `https://github.com/Domocn/Laro-home-assistant-addon`
 
 ## Cloud users (laro.food)
 
-Use the **HACS integration** only. You do **not** need the Supervisor add-on.
+Do **not** install this Supervisor add-on for cloud.
 
-### Install via HACS
+Install the **separate HACS integration**:
 
-1. **HACS → Integrations** → ⋮ → **Custom repositories**
-2. Repository: `https://github.com/Domocn/Laro-home-assistant-addon`
-3. Category: **Integration**
-4. Download **Laro** → restart Home Assistant
-5. **Settings → Devices & Services → Add Integration → Laro**
-6. Server URL: `https://laro.food` + an API token from Laro **Settings → API Tokens**
+**Repo:** [`Domocn/laro-ha-intergration`](https://github.com/Domocn/laro-ha-intergration)
+
+1. HACS → Integrations → Custom repositories  
+2. `https://github.com/Domocn/laro-ha-intergration`  
+3. Category: **Integration**  
+4. Download Laro → restart → Add Integration → URL `https://laro.food` + API token  
+
+---
 
 ## Supervisor add-on (self-host inside HA OS)
 
