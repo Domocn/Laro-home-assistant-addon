@@ -1,0 +1,74 @@
+configuration:
+  jwt_secret:
+    name: Login signing key
+    description: Leave empty to auto-generate and keep a secure key. Only set this when moving an existing install.
+  llm_provider:
+    name: AI provider
+    description: "Which AI powers imports and suggestions. 'embedded' runs a small model inside the add-on; 'ollama' uses your Ollama server; others need an API key below."
+  ollama_url:
+    name: Ollama URL
+    description: Address of your Ollama server (only used when AI provider is ollama).
+  ollama_model:
+    name: Ollama model
+    description: Model name to use on your Ollama server, e.g. llama3.
+  openai_api_key:
+    name: OpenAI API key
+    description: Only needed when AI provider is openai.
+  anthropic_api_key:
+    name: Anthropic API key
+    description: Only needed when AI provider is anthropic.
+  google_ai_api_key:
+    name: Google AI API key
+    description: Only needed when AI provider is google.
+  email_enabled:
+    name: Send emails
+    description: Enable password-reset and invite emails. Requires the SMTP settings below.
+  smtp_server:
+    name: SMTP server
+    description: Hostname of your mail server, e.g. smtp.gmail.com.
+  smtp_port:
+    name: SMTP port
+    description: Usually 587 (STARTTLS) or 465 (SSL).
+  smtp_username:
+    name: SMTP username
+  smtp_password:
+    name: SMTP password
+  smtp_from_email:
+    name: From address
+    description: Email address that Laro emails are sent from.
+  cors_origins:
+    name: Extra allowed web origins
+    description: "Comma-separated list of other websites allowed to call Laro, e.g. https://laro.mydomain.com. Leave empty when you only use Laro from the Home Assistant sidebar. '*' is not allowed."
+  enable_registration:
+    name: Allow new sign-ups
+    description: Turn off after your household has created their accounts.
+  enable_oauth_google:
+    name: Sign in with Google
+  google_client_id:
+    name: Google client ID
+  google_client_secret:
+    name: Google client secret
+  enable_oauth_github:
+    name: Sign in with GitHub
+  github_client_id:
+    name: GitHub client ID
+  github_client_secret:
+    name: GitHub client secret
+  postgres_max_connections:
+    name: Database max connections
+    description: Advanced. Default 100.
+  postgres_shared_buffers:
+    name: Database memory
+    description: Advanced. Memory for database caching, e.g. 256MB. Lower on small devices like a Raspberry Pi.
+  redis_maxmemory:
+    name: Cache memory limit
+    description: Advanced. e.g. 256mb.
+  celery_concurrency:
+    name: Background workers
+    description: How many imports/AI jobs run at once. Use 1 on a Raspberry Pi.
+  enable_flower_dashboard:
+    name: Job monitor (Flower)
+    description: Runs the background job dashboard inside the add-on (local only). Off saves memory.
+  debug_mode:
+    name: Debug logging
+    description: Verbose logs for troubleshooting. Turn off afterwards.
