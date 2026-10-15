@@ -2,26 +2,6 @@
 
 All notable changes to the Laro Home Assistant Add-on will be documented in this file.
 
-## [4.1.0] - 2026-10-15
-
-### Added
-- Watchdog: Supervisor restarts the add-on if the web UI stops responding
-- Consistent database dump before every Home Assistant backup (`backup_pre`/`backup_post`)
-- Friendly names and help text for every setting (`translations/en.yaml`)
-- Integration 1.5.0: Laro shopping lists appear as native Home Assistant to-do lists
-
-### Changed
-- Backend, worker and Flower run as an unprivileged `laro` user; secrets file is no longer world-readable
-- Removed unused permissions: Home Assistant API access and config/share/ssl folder mappings
-- Removed dead port mappings 8001 and 5555 (those services only listen inside the add-on); use port 3000
-- Flower is off by default and bound to localhost
-- Clean database shutdown (fast mode, waits) and readiness checks instead of fixed `sleep 5` at first start
-- Service logs go to the add-on log only (no ever-growing files under /var/log/laro)
-- mDNS discovery disabled inside the add-on (it advertised an unreachable internal address)
-
-### Security
-- (From 4.0.12 security PR) random per-install database password and no wildcard CORS
-
 ## [4.0.11] - 2026-09-14
 
 ### Fixed

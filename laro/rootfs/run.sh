@@ -121,31 +121,8 @@ else
     log "Running in standalone mode (no SUPERVISOR_TOKEN)"
 fi
 
-# Per-install random database password (replaces the old fixed laro/laro default)
-DB_PASSWORD_FILE=/data/.db_password
-DB_PASSWORD_ROTATE=false
-if [ ! -s "$DB_PASSWORD_FILE" ]; then
-    tr -dc 'A-Za-z0-9' < /dev/urandom | head -c 32 > "$DB_PASSWORD_FILE"
-    chmod 600 "$DB_PASSWORD_FILE"
-    DB_PASSWORD_ROTATE=true
-fi
-DB_PASSWORD=$(cat "$DB_PASSWORD_FILE")
-
-# CORS: the UI is served same-origin via Ingress, so no cross-origin access by default
-CORS_ORIGINS=""
-if [ -f "$CONFIG_PATH" ]; then
-    CORS_ORIGINS=$(jq -r '.cors_origins // empty' "$CONFIG_PATH")
-fi
-if [ "$CORS_ORIGINS" = "*" ]; then
-    log "Warning: cors_origins='*' is not allowed; ignoring."
-    CORS_ORIGINS=""
-fi
-if [ -z "$CORS_ORIGINS" ]; then
-    CORS_ORIGINS="http://homeassistant.local:8123"
-fi
-
 # Export environment variables for the backend
-export DATABASE_URL="postgresql://laro:${DB_PASSWORD}@127.0.0.1:5432/laro"
+export DATABASE_URL="postgresql://laro:laro@127.0.0.1:5432/laro"
 export REDIS_URL="redis://127.0.0.1:6379"
 export REDIS_PUBSUB_ENABLED="true"
 export JWT_SECRET="$JWT_SECRET"
@@ -166,7 +143,7 @@ export GOOGLE_CLIENT_ID="$GOOGLE_CLIENT_ID"
 export GOOGLE_CLIENT_SECRET="$GOOGLE_CLIENT_SECRET"
 export GITHUB_CLIENT_ID="$GITHUB_CLIENT_ID"
 export GITHUB_CLIENT_SECRET="$GITHUB_CLIENT_SECRET"
-export CORS_ORIGINS="$CORS_ORIGINS"
+export CORS_ORIGINS="*"
 export UPLOAD_DIR="/data/uploads"
 export LARO_HA_ADDON="true"
 export LARO_HA_ADDON="true"
@@ -187,12 +164,7 @@ mkdir -p /data/uploads
 mkdir -p /var/log/laro
 mkdir -p /var/run/postgresql
 
-chown root:postgres /var/log/laro
-chmod 0775 /var/log/laro
-
-# Non-root runtime user for backend/worker/flower
-mkdir -p /data/uploads /data/laro-home
-chown -R laro:laro /data/uploads /data/laro-home
+chmod 777 /var/log/laro
 
 touch /var/log/laro/postgres.log /var/log/laro/postgres-error.log
 chown postgres:postgres /var/log/laro/postgres.log /var/log/laro/postgres-error.log
@@ -218,24 +190,17 @@ log_filename = 'postgresql-%Y-%m-%d.log'
 EOF
 
     su - postgres -c "/usr/lib/postgresql/15/bin/pg_ctl -D /data/postgres -l /var/log/laro/postgres.log start"
-    for _i in $(seq 1 30); do su - postgres -c "/usr/lib/postgresql/15/bin/pg_isready -h /var/run/postgresql -q" && break; sleep 1; done
+    sleep 5
 
-    su - postgres -c "psql -c \"CREATE USER laro WITH PASSWORD '${DB_PASSWORD}';\""
+    su - postgres -c "psql -c \"CREATE USER laro WITH PASSWORD 'laro';\""
     su - postgres -c "psql -c \"CREATE DATABASE laro OWNER laro;\""
     su - postgres -c "psql -c \"GRANT ALL PRIVILEGES ON DATABASE laro TO laro;\""
 
-    su - postgres -c "/usr/lib/postgresql/15/bin/pg_ctl -D /data/postgres -m fast -w stop"
+    su - postgres -c "/usr/lib/postgresql/15/bin/pg_ctl -D /data/postgres stop"
 
     log "PostgreSQL initialized successfully"
 else
     log "PostgreSQL database already exists"
-    if [ "$DB_PASSWORD_ROTATE" = "true" ]; then
-        log "Rotating legacy default database password..."
-        su - postgres -c "/usr/lib/postgresql/15/bin/pg_ctl -D /data/postgres -l /var/log/laro/postgres.log start"
-        for _i in $(seq 1 30); do su - postgres -c "/usr/lib/postgresql/15/bin/pg_isready -h /var/run/postgresql -q" && break; sleep 1; done
-        su - postgres -c "psql -c \"ALTER USER laro WITH PASSWORD '${DB_PASSWORD}';\""
-        su - postgres -c "/usr/lib/postgresql/15/bin/pg_ctl -D /data/postgres -m fast -w stop"
-    fi
 fi
 
 # Update backend to use the data directory for uploads
@@ -302,17 +267,13 @@ GITHUB_CLIENT_SECRET=$GITHUB_CLIENT_SECRET
 CORS_ORIGINS=$CORS_ORIGINS
 UPLOAD_DIR=$UPLOAD_DIR
 LARO_HA_ADDON=true
-# mDNS from inside the add-on container advertises an unreachable internal IP
-ZEROCONF_ENABLED=false
+LARO_HA_ADDON=true
 DEBUG_MODE=$DEBUG_MODE
 LOG_LEVEL=$LOG_LEVEL
 UVICORN_LOG_LEVEL=$UVICORN_LOG_LEVEL
 CELERY_LOG_LEVEL=$CELERY_LOG_LEVEL
 PATH=/opt/venv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 EOF
-# Secrets file: readable by root and the laro service user only
-chown root:laro /etc/laro.env
-chmod 0640 /etc/laro.env
 
 log "Configuration complete. Starting services..."
 log "  - PostgreSQL: 127.0.0.1:5432"
@@ -322,7 +283,7 @@ log "  - Celery Worker: $CELERY_CONCURRENCY workers"
 if [ "$ENABLE_FLOWER" = "true" ]; then
     log "  - Flower Dashboard: 127.0.0.1:5555"
 fi
-log "  - Web UI: Home Assistant sidebar (ingress); optional port 3000"
+log "  - Frontend/Nginx: 0.0.0.0:3000"
 log "  - LLM Provider: $LLM_PROVIDER"
 
 if [ "$DEBUG_MODE" = "true" ]; then

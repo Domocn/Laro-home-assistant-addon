@@ -208,16 +208,6 @@ ollama_model: llama3
 - `mistral` - Fast and efficient
 - `llama3:70b` - Higher quality (requires more RAM)
 
-## Home Assistant integration
-
-Install the Laro integration (HACS or `custom_components/laro`) and add it with:
-- **URL:** `http://[homeassistant-ip]:3000` (enable port 3000 in the add-on's Network tab) or `https://laro.food` for cloud
-- **Token:** Laro > Settings > Integrations
-
-You get sensors (today's meals, tonight's suggestion, items to buy, ...), a meal-plan
-calendar, and **each Laro shopping list as a native Home Assistant to-do list**: tick
-items off, add or rename them from the HA app, voice assistants or automations.
-
 ## Architecture
 
 ### Services Running
@@ -267,9 +257,7 @@ Data persists across add-on restarts and updates.
 
 ## Backup
 
-The add-on data is included in Home Assistant backups. Before each backup the add-on
-writes a consistent database dump (`laro-db-backup.sql.gz`) into its data folder, so
-backups restore cleanly even if they're taken while you're cooking. To backup manually:
+The add-on data is included in Home Assistant backups. To backup manually:
 
 1. Go to **Settings** > **System** > **Backups**
 2. Create a new backup
@@ -314,9 +302,8 @@ docker exec laro-addon tail -f /var/log/laro/nginx.log
 
 Access the Flower dashboard to monitor background jobs:
 
-Flower is **off by default** (saves memory) and, when enabled, only listens inside the
-add-on. To view it, open a terminal in the add-on and run
-`curl http://127.0.0.1:5555/flower/`, or check job status in the Laro admin pages.
+- **Via Port:** http://[homeassistant-ip]:5555 (if port exposed)
+- **Via Ingress:** http://[homeassistant-url]/flower
 
 **Features:**
 - Real-time task monitoring
@@ -331,7 +318,7 @@ The add-on includes health checks:
 
 ```bash
 curl http://localhost:3000/health
-curl http://localhost:3000/api/health
+curl http://localhost:8001/api/health
 ```
 
 Response:
@@ -364,7 +351,7 @@ docker logs laro-addon
 **Common issues:**
 - Insufficient RAM (need 4GB minimum)
 - PostgreSQL initialization failed
-- Port conflicts (3000)
+- Port conflicts (3000, 8001, 5432, 6379, 5555)
 
 **Solutions:**
 - Increase Home Assistant RAM allocation
@@ -485,10 +472,7 @@ docker exec laro-addon cat /var/log/laro/migration.log
 
 ## API Access
 
-The API is served alongside the web UI. Enable port **3000** in the add-on's
-Network settings to reach it from phones or the Laro integration at
-`http://[homeassistant-ip]:3000` (the old port 8001 / 5555 mappings were removed in
-4.1.0 because those services only listen inside the add-on).
+The backend API is available at port 8001 (if exposed) or via ingress at `/api/`.
 
 Example API endpoints:
 - `GET /api/health` - Health check
@@ -510,7 +494,7 @@ curl -X POST http://localhost:8001/api/ai/import-url \
   -d '{"url": "https://example.com/recipe"}'
 
 # Check job status
-curl http://localhost:3000/api/jobs/JOB_ID \
+curl http://localhost:8001/api/jobs/JOB_ID \
   -H "Authorization: Bearer YOUR_TOKEN"
 ```
 
