@@ -17,8 +17,8 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     corepack prepare yarn@1.22.22 --activate
 
 # Cache bust + version (Supervisor also passes BUILD_VERSION). Never use private laro-priv here — it 404s.
-ARG BUILD_VERSION=4.0.11
-ARG LARO_ADDON_VERSION=4.0.11
+ARG BUILD_VERSION=4.1.0
+ARG LARO_ADDON_VERSION=4.1.0
 ADD https://api.github.com/repos/Domocn/Laro/git/refs/heads/main /tmp/laro-version.json
 RUN echo "Building Laro HA add-on ${LARO_ADDON_VERSION} (BUILD_VERSION=${BUILD_VERSION})"
 
@@ -62,7 +62,7 @@ RUN python3 -m venv /opt/venv && \
 ENV PATH="/opt/venv/bin:$PATH"
 
 # Cache bust against public artefact (not private laro-priv)
-ARG BUILD_VERSION=4.0.11
+ARG BUILD_VERSION=4.1.0
 ADD https://api.github.com/repos/Domocn/Laro/git/refs/heads/main /tmp/laro-version-backend.json
 RUN echo "Backend stage BUILD_VERSION=${BUILD_VERSION}"
 
@@ -83,19 +83,21 @@ COPY rootfs/usr/local/bin/wait-for-postgres.sh /usr/local/bin/wait-for-postgres.
 COPY rootfs/usr/local/bin/laro-env.sh /usr/local/bin/laro-env.sh
 COPY rootfs/usr/local/bin/log-wrapper.sh /usr/local/bin/log-wrapper.sh
 COPY rootfs/usr/local/bin/test-backend-startup.sh /usr/local/bin/test-backend-startup.sh
+COPY rootfs/usr/local/bin/laro-backup.sh /usr/local/bin/laro-backup.sh
 COPY rootfs/run.sh /run.sh
-RUN chmod +x /run.sh /usr/local/bin/*.sh && \
+RUN groupadd --system laro && useradd --system --gid laro --home-dir /data/laro-home --shell /usr/sbin/nologin laro && \
+    chmod +x /run.sh /usr/local/bin/*.sh && \
     chown -R postgres:postgres /data/postgres /var/run/postgresql /run/postgresql && \
     chown -R redis:redis /data/redis
 
 WORKDIR /app/backend
 
 # Expose ports
-EXPOSE 3000 8001 5555
+EXPOSE 3000
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=10s --start-period=90s --retries=3 \
-    CMD curl -f http://localhost:3000/health || curl -f http://localhost:8001/api/health || exit 1
+    CMD curl -fsS http://127.0.0.1:3000/health && curl -fsS http://127.0.0.1:8001/api/health || exit 1
 
 # Labels
 LABEL io.hass.name="Laro" \

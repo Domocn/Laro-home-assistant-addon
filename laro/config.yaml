@@ -1,6 +1,6 @@
 # Home Assistant Add-on Configuration
 name: "Laro"
-version: "4.0.11"
+version: "4.1.0"
 slug: "laro"
 description: "Self-hosted family recipe management with PostgreSQL, Redis, and background job processing"
 url: "https://github.com/Domocn/Laro"
@@ -12,25 +12,20 @@ ingress_port: 3000
 ingress_stream: true
 panel_icon: mdi:chef-hat
 panel_title: Laro
-homeassistant_api: true
 init: false
 
-# Map config and data directories for persistence
-map:
-  - homeassistant_config:rw
-  - share:rw
-  - ssl:ro
+# Supervisor restarts the add-on if the web UI stops answering
+watchdog: "http://[HOST]:[PORT:3000]/health"
 
-# Ports configuration
+# Laro doesn't read Home Assistant config, /share or /ssl, and doesn't call the
+# HA API, so those permissions are no longer requested.
+
+# Ports configuration (disabled by default; ingress needs none)
 ports:
   3000/tcp: null
-  8001/tcp: null
-  5555/tcp: null
 
 ports_description:
-  3000/tcp: "Web UI (optional, use ingress instead)"
-  8001/tcp: "Backend API (optional)"
-  5555/tcp: "Flower Dashboard (job monitoring, optional)"
+  3000/tcp: "Web UI + API for phones and the Laro integration (optional; the sidebar uses ingress)"
 
 # Add-on options with defaults
 options:
@@ -47,6 +42,7 @@ options:
   smtp_username: ""
   smtp_password: ""
   smtp_from_email: ""
+  cors_origins: ""
   enable_registration: true
   enable_oauth_google: false
   google_client_id: ""
@@ -58,7 +54,7 @@ options:
   postgres_shared_buffers: "256MB"
   redis_maxmemory: "256mb"
   celery_concurrency: 2
-  enable_flower_dashboard: true
+  enable_flower_dashboard: false
   debug_mode: false
 
 # Schema for validating options
@@ -76,6 +72,7 @@ schema:
   smtp_username: "str?"
   smtp_password: "str?"
   smtp_from_email: "str?"
+  cors_origins: "str?"
   enable_registration: "bool?"
   enable_oauth_google: "bool?"
   google_client_id: "str?"
@@ -94,7 +91,10 @@ schema:
 environment:
   LARO_HA_ADDON: "true"
 
-# Backup paths
+# Backups: dump the database first so HA backups always contain a consistent copy
+backup: hot
+backup_pre: "/usr/local/bin/laro-backup.sh pre"
+backup_post: "/usr/local/bin/laro-backup.sh post"
 backup_exclude:
   - "*.log"
   - "__pycache__"
